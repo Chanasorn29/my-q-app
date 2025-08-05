@@ -1,148 +1,166 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Kanit', sans-serif;
-  background: linear-gradient(135deg, #ffe0f0, #fceaff);
+/* พื้นหลังไล่สีพาสเทลเคลื่อนไหว + กากเพชรวิบวับ */
+.page-background {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-}
+  justify-content: center;
+  padding: 1rem;
 
-.quiz-container {
-  background: white;
-  padding: 32px;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(255, 105, 180, 0.25);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  animation: pop-in 0.5s ease;
-}
-
-.progress-text {
-  font-size: 14px;
-  color: #999;
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  background-color: #ffd6e8;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffe6f0, #ffe0f0, #fff0f5, #e6e0ff);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+  position: relative;
   overflow: hidden;
-  height: 10px;
-  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.progress-fill {
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ดาวกากเพชรวิบวับ */
+.page-background::before {
+  content: "";
+  position: absolute;
+  width: 100%;
   height: 100%;
-  background-color: #f43f5e;
-  transition: width 0.4s ease;
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#ffc8ec 1px, transparent 1px),
+    radial-gradient(#ffd5ec 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px, 10px 30px;
+  opacity: 0.2;
+  z-index: 0;
+  animation: sparkleMove 60s linear infinite;
 }
 
-.question-card {
-  animation: fadeScaleIn 0.4s ease;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+@keyframes sparkleMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100px, -100px); }
 }
 
+/* กรอบคำถาม */
+.quiz-container {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* กิฟท์มุมบนขวา */
+.corner-gif {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  animation: floatGif 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes floatGif {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/* คำถาม */
 .question {
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #d63384;
+  margin-bottom: 1.5rem;
+  min-height: 4rem; /* ทำให้กล่องข้อความสูงเท่ากัน */
 }
 
-.options {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
+/* ปุ่มคำตอบ */
 .option-btn {
-  background: #f72585;
+  background: #ff6699;
   color: white;
-  padding: 12px 24px;
-  border-radius: 14px;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border-radius: 9999px;
   border: none;
-  font-size: 1.1rem;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3);
+  transition: background-color 0.3s ease;
+  margin: 0.3rem;
+  min-width: 120px;
+  user-select: none;
 }
-.option-btn:hover {
-  background: #d81e64;
-  transform: scale(1.05);
+
+.option-btn:hover:not(:disabled) {
+  background-color: #ff4d80;
 }
+
 .option-btn:disabled {
-  background-color: #f3a4c6;
+  background-color: #ffb3c6;
   cursor: not-allowed;
 }
 
-.runaway-btn {
-  position: relative;
-  transition: transform 0.2s ease;
+/* แถบความคืบหน้า */
+.progress-bar {
+  background-color: #ffd9e6;
+  border-radius: 9999px;
+  height: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
 }
 
-.thank-you {
-  animation: sparkle 1.5s infinite alternate;
-  background: linear-gradient(145deg, #ffecf2, #ffe8fc);
-  color: #c2185b;
-  font-size: 1.8rem;
-  font-weight: 700;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+.progress-fill {
+  background-color: #ff6699;
+  height: 100%;
+  width: 0%;
+  transition: width 0.5s ease;
+  border-radius: 9999px;
 }
 
+/* ข้อความสถานะ */
+.progress-text {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ff3366;
+}
+
+/* ปุ่ม thank you */
 .thank-you button {
-  margin-top: 20px;
-  background: #ff4081;
-  color: white;
+  background: #ff6699;
+  padding: 0.8rem 2rem;
+  border-radius: 9999px;
   border: none;
-  padding: 12px 24px;
-  font-size: 1rem;
+  color: white;
   font-weight: bold;
-  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem;
 }
+
 .thank-you button:hover {
-  background: #e91e63;
+  background-color: #ff4d80;
+}
+.heart {
+  position: absolute;
+  bottom: 30px; /* จุดเริ่มลอยจากล่าง */
+  animation-name: floatUp;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+  user-select: none;
+  opacity: 1;
+  will-change: transform, opacity;
 }
 
-@keyframes fadeScaleIn {
+@keyframes floatUp {
   0% {
-    opacity: 0;
-    transform: scale(0.9);
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes sparkle {
-  0% {
-    box-shadow: 0 0 10px #f3a4c6, 0 0 20px #f3a4c6;
-  }
-  100% {
-    box-shadow: 0 0 20px #f72585, 0 0 30px #f72585;
-  }
-}
-
-@keyframes pop-in {
-  from {
-    transform: scale(0.95);
+    transform: translateY(-150px) scale(1.3);
     opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
   }
 }
