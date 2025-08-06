@@ -25,8 +25,8 @@ export default function LoveQuiz() {
   const voiceRef = useRef(null);
 
   const BIN_ID = "6890e5d1f7e7a370d1f3afb8";
-  const MASTER_KEY = "...";
-  const ACCESS_KEY = "...";
+  const MASTER_KEY = "$2a$10$eje//b7qW4wTWpz57aPbTue5O5t/nUeBOEoD.unmPB73vzDBfGKAa";
+  const ACCESS_KEY = "$2a$10$4yA8NuXIvVj2eueSFR0SLe0aCE2dEI5KUB8t766jezkK0.ciiFX.6";
 
   useEffect(() => {
     if (audioRef.current) {
