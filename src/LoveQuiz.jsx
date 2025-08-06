@@ -31,7 +31,6 @@ export default function LoveQuiz() {
   useEffect(() => {
     if (audioRef.current) {
       const playAudio = () => {
-        audioRef.current.volume = 0.3;
         audioRef.current.play().catch(() => {});
         document.removeEventListener("click", playAudio);
       };
@@ -40,11 +39,15 @@ export default function LoveQuiz() {
   }, []);
 
   useEffect(() => {
-    if (step === questions.length - 1 && voiceRef.current) {
-      voiceRef.current.volume = 1;
-      voiceRef.current.play().catch(() => {});
+  if (step === questions.length - 1 && voiceRef.current) {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.1; // หรี่ลงแทน pause
     }
-  }, [step]);
+
+    voiceRef.current.volume = 1.0;
+    voiceRef.current.play().catch(() => {});
+  }
+}, [step]);
 
   useEffect(() => {
     if (submitted) {
