@@ -116,7 +116,7 @@ export default function LoveQuiz() {
             alt="cute gif"
             className="corner-gif"
           />
-          <h2>ขอบคุณที่ตอบคำถาม! 💖</h2>
+          <h2>รักนะค้าบบเบบี๋~! 💖</h2>
           <button
             onClick={() => {
               setStep(0);
