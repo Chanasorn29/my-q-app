@@ -31,6 +31,7 @@ export default function LoveQuiz() {
   useEffect(() => {
     if (audioRef.current) {
       const playAudio = () => {
+        audioRef.current.volume = 0.05;
         audioRef.current.play().catch(() => {});
         document.removeEventListener("click", playAudio);
       };
@@ -41,7 +42,7 @@ export default function LoveQuiz() {
   useEffect(() => {
   if (step === questions.length - 1 && voiceRef.current) {
     if (audioRef.current) {
-      audioRef.current.volume = 0.1; // หรี่ลงแทน pause
+      audioRef.current.volume = 0; // หรี่ลงแทน pause
     }
 
     voiceRef.current.volume = 1.0;
